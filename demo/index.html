@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Демо</title>
+    <meta content="dark light" name="color-scheme">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+    <link href="/demo/styles.css" rel="stylesheet">
+    <link href="/src/styles.css" rel="stylesheet">
+    <script src="/src/utils.mjs"></script>
+</head>
+<body>
+<h2>Описание задачи</h2>
+<form class="test-config">
+    <div class="flex">
+        <label for="url">Ссылка на JS файл:</label>
+        <input id="url" name="url" placeholder="https://raw.githubusercontent.com/User/Repo/Branch/Dir/script.js"
+               type="url">
+    </div>
+    <br>
+    <label for="func">Название функции:</label>
+    <input id="func" name="func" placeholder="function_name">
+    <button type="submit">Подключить</button>
+    <p class="break">
+        <script>
+            ["url", "func"].forEach(id => inputValueByParam(id))
+            printTargetParams()
+        </script>
+    </p>
+</form>
+<fieldset class="test-case" id="first-case">
+    <legend><a href="#first-case">Описание теста</a></legend>
+    <h3>Условие:</h3>
+    <script class="visible">
+        var text = 'Test text',
+            f = getTargetFunction(),
+            result = f(text),
+            isValid = Array.isArray(result)
+                && typeof result[0] === 'object'
+                && result[0].word === 'Test'
+                && result.length === 2;
+    </script>
+    <h4>Результат:</h4>
+    <details>
+        <summary>
+            <script>printStatus(isValid)</script>
+        </summary>
+        <script>printVars({isValid, result})</script>
+    </details>
+</fieldset>
+</body>
+</html>

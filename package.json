@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start": "npx @web/dev-server -w -p 80 -o /demo/index.html"
+  }
+}

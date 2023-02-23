@@ -1,0 +1,71 @@
+fieldset.test-case {
+    --padding: 20px;
+    overflow-x: auto;
+    border: 1px solid;
+    min-width: initial;
+    margin-bottom: 3em;
+    padding: var(--padding);
+}
+
+@media (orientation: landscape) {
+    fieldset.test-case {
+        width: min-content;
+        overflow-x: initial;
+    }
+}
+
+fieldset.test-case > legend {
+    margin-left: 0;
+    padding: 0 1ch;
+}
+
+fieldset.test-case h3 {
+    margin-top: 0;
+}
+
+fieldset.test-case h4 {
+    margin-bottom: .5em;
+}
+
+form.test-config a,
+fieldset.test-case a {
+    color: inherit;
+}
+
+fieldset.test-case script.visible {
+    margin: -1.65em 0;
+    margin-left: calc(1ch * var(--tabs) * -4);
+}
+
+fieldset.test-case script.visible,
+fieldset.test-case output {
+    --tabs: 2;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    -webkit-hyphens: none;
+    line-height: 1.65;
+    white-space: pre;
+    display: block;
+    tab-size: 2;
+}
+
+form.test-config .flex,
+fieldset.test-case .flex {
+    display: flex;
+    align-items: baseline;
+}
+
+form.test-config .break,
+fieldset.test-case .break {
+    word-break: break-word;
+}
+
+form.test-config .flex > input,
+fieldset.test-case .flex > input {
+    flex-grow: 1;
+    margin-left: 1ch;
+}
+
+fieldset.test-case details summary {
+    margin: 1em 0;
+    cursor: pointer;
+}

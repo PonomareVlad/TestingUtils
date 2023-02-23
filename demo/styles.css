@@ -1,0 +1,36 @@
+@supports (padding-top: env(safe-area-inset-top)) {
+    :root {
+        --safe-padding-top: env(safe-area-inset-top);
+        --safe-padding-left: env(safe-area-inset-left);
+        --safe-padding-right: env(safe-area-inset-right);
+        --safe-padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+:root {
+    --root-padding: 20px;
+    --root-padding-top: max(var(--safe-padding-top), var(--root-padding));
+    --root-padding-left: max(var(--safe-padding-left), var(--root-padding));
+    --root-padding-right: max(var(--safe-padding-right), var(--root-padding));
+    --root-padding-bottom: max(var(--safe-padding-bottom), var(--root-padding));
+    font-family: Helvetica, sans-serif;
+}
+
+@media (max-width: 350px) {
+    :root {
+        font-size: 14px;
+        --root-padding: 16px;
+    }
+}
+
+body {
+    padding: var(--root-padding-top) var(--root-padding-right) var(--root-padding-bottom) var(--root-padding-left);
+}
+
+h2 {
+    margin-bottom: 2em;
+}
+
+fieldset.test-case {
+    --padding: var(--root-padding);
+}
