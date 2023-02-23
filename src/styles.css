@@ -15,6 +15,7 @@ fieldset.test-case {
 }
 
 fieldset.test-case > legend {
+    white-space: nowrap;
     margin-left: 0;
     padding: 0 1ch;
 }
