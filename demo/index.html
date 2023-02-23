@@ -12,18 +12,24 @@
 <body>
 <h2>Описание задачи</h2>
 <form class="test-config">
-    <div class="flex">
+    <p class="flex">
         <label for="url">Ссылка на JS файл:</label>
         <input id="url" name="url" placeholder="https://raw.githubusercontent.com/User/Repo/Branch/Dir/script.js"
                type="url">
-    </div>
-    <br>
-    <label for="func">Название функции:</label>
-    <input id="func" name="func" placeholder="function_name">
+    </p>
+    <p>
+        <label for="func">Название функции:</label>
+        <input id="func" name="func" placeholder="function_name">
+    </p>
+    <p>
+        <label for="globalize">Сделать функцию глобальной:</label>
+        <input id="globalize" name="globalize" type="checkbox">
+    </p>
     <button type="submit">Подключить</button>
     <p class="break">
         <script>
             ["url", "func"].forEach(id => inputValueByParam(id))
+            inputValueByParam("globalize", true)
             printTargetParams()
         </script>
     </p>

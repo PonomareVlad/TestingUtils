@@ -1,15 +1,18 @@
-function inputValueByParam(id, name = id) {
+function inputValueByParam(id, boolean, name = id) {
     const value = getSearchParam(name)
     const input = document.getElementById(id)
     if (input && typeof value === "string")
         input.value = getSearchParam(name)
+    if (input && boolean && value)
+        input.checked = true
 }
 
-function printTargetParams(funcParam = "func", urlParam = "url") {
+function printTargetParams(funcParam = "func", urlParam = "url", globalizeParam = "globalize") {
     const url = getSearchParam(urlParam)
+    const globalize = getSearchParam(globalizeParam)
     const func = funcParam ? getSearchParam(funcParam) : ""
     const printFunc = funcParam ? `(Функция: ${func || `<span style="color: coral">Не указана</span>`})` : ""
-    document.write(connectScript() ?
+    document.write(connectScript(globalize) ?
         `Подключен файл: <a href="${url}" target="_blank">${url}</a> ${printFunc}` :
         `<span style="color: coral">Файл не подключен</span>`)
 }
@@ -24,13 +27,22 @@ function getSearchParam(name) {
     return new URL(location).searchParams.get(name)
 }
 
-function connectScript(urlParam = "url") {
+function connectScript(globalize, urlParam = "url") {
     const params = new URL(location).searchParams
     if (!params.has(urlParam) || !params.get(urlParam)) return false
-    const url = params.get(urlParam).replace("https://raw.githubusercontent.com/", "https://cdn.statically.io/gh/")
+    const replacement = ["https://raw.githubusercontent.com/", "https://cdn.statically.io/gh/"]
+    const url = params.get(urlParam).replace(...replacement)
     document.write(`
-        <script src="${url}"></script>`)
+        <script src="${globalize ? globalizeFunction(url) : url}"></script>`)
     return true
+}
+
+function globalizeFunction(url, funcParam = "func") {
+    const apiURL = new URL("https://script-utils.vercel.app/api/globalize")
+    const variable = getSearchParam(funcParam)
+    apiURL.searchParams.set("vars", variable)
+    apiURL.searchParams.set("source", url)
+    return apiURL.href
 }
 
 function getTargetFunction(funcParam = "func") {
