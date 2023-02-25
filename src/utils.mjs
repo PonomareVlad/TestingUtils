@@ -30,17 +30,16 @@ function getSearchParam(name) {
 function connectScript(globalize, urlParam = "url") {
     const params = new URL(location).searchParams
     if (!params.has(urlParam) || !params.get(urlParam)) return false
-    const replacement = ["https://raw.githubusercontent.com/", "https://cdn.statically.io/gh/"]
-    const url = params.get(urlParam).replace(...replacement)
-    document.write(`
-        <script src="${globalize ? globalizeFunction(url) : url}"></script>`)
+    document.write(`<script src="${proxyScript(params.get(urlParam), globalize)}"></script>`)
     return true
 }
 
-function globalizeFunction(url, funcParam = "func") {
+function proxyScript(url, globalize, funcParam = "func") {
     const apiURL = new URL("https://script-utils.vercel.app/api/globalize")
-    const variable = getSearchParam(funcParam)
-    apiURL.searchParams.set("vars", variable)
+    if (globalize) {
+        const variable = getSearchParam(funcParam)
+        apiURL.searchParams.set("vars", variable)
+    }
     apiURL.searchParams.set("source", url)
     return apiURL.href
 }
